@@ -1,19 +1,5 @@
 <script setup lang="ts">
-import {
-  defineProps,
-  ref,
-  watch,
-  computed,
-  onMounted,
-  type PropType,
-} from "vue";
-
-/*
-interface Props {
-  color: "blue" | "red";
-}
-defineProps<Props>()
-*/
+import { defineProps, watch, onMounted, type PropType } from "vue";
 
 defineProps({
   initialCount: {
@@ -22,27 +8,27 @@ defineProps({
   },
 });
 
-let counter = ref(0);
-const counterDouble = ref(0);
+let counter = $ref(0);
+let counterDouble = $ref(0);
 
 const increment = () => {
-  counter.value += 1;
+  counter += 1;
 };
 
-watch(counter, (value) => {
-  counterDouble.value = value * 2;
+watch($$(counter), (value) => {
+  counterDouble = value * 2;
 });
 
 /**
  * 1) Tracking de dépendance automatiquement
  * 2) créer une variable reactive et la mettre à jour quand une dépendance change
  */
-const counterTriple = computed(() => {
-  return counter.value * 3;
+const counterTriple = $computed(() => {
+  return counter * 3;
 });
 
 onMounted(() => {
-  alert("coucou");
+  console.log("coucou");
 });
 </script>
 

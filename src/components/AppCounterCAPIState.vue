@@ -5,6 +5,7 @@ import {
   watch,
   computed,
   onMounted,
+  reactive,
   type PropType,
 } from "vue";
 
@@ -15,42 +16,53 @@ interface Props {
 defineProps<Props>()
 */
 
-defineProps({
+const props = defineProps({
   initialCount: {
     type: Number as PropType<number>,
     required: true,
   },
 });
 
+const state = reactive({
+  counter: props.initialCount,
+  counterDouble: 0,
+});
+
+// ces deux notation créer la même variable réactive ! (en gros)
+/*
 let counter = ref(0);
-const counterDouble = ref(0);
+let counter = reactive({ value: 0 });
+*/
 
 const increment = () => {
-  counter.value += 1;
+  state.counter += 1;
 };
 
-watch(counter, (value) => {
-  counterDouble.value = value * 2;
-});
+watch(
+  () => state.counter,
+  (value) => {
+    state.counterDouble = value * 2;
+  }
+);
 
 /**
  * 1) Tracking de dépendance automatiquement
  * 2) créer une variable reactive et la mettre à jour quand une dépendance change
  */
 const counterTriple = computed(() => {
-  return counter.value * 3;
+  return state.counter * 3;
 });
 
 onMounted(() => {
-  alert("coucou");
+  console.log("onmounted");
 });
 </script>
 
 <template>
   <div>
     <h1>Counter</h1>
-    <h2>{{ counter }}</h2>
-    <h3>Double: {{ counterDouble }}</h3>
+    <h2>{{ state.counter }}</h2>
+    <h3>Double: {{ state.counterDouble }}</h3>
     <h3>Triple: {{ counterTriple }}</h3>
     <button @click="increment">add</button>
   </div>

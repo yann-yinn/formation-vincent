@@ -25,6 +25,8 @@ defineProps({
 let counter = ref(0);
 const counterDouble = ref(0);
 
+console.log("counter", counter);
+
 const increment = () => {
   counter.value += 1;
 };
