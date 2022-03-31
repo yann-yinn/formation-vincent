@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import AppCounter from "../components/AppCounter.vue";
+import UsersView from "../views/UsersView.vue";
 import AppCounterView from "../views/AppCounterView.vue";
 
 const router = createRouter({
@@ -23,6 +23,11 @@ const router = createRouter({
       path: "/counter",
       name: "counter",
       component: AppCounterView,
+    },
+    {
+      path: "/users",
+      name: "users",
+      component: UsersView,
     },
   ],
 });

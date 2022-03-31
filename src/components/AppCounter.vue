@@ -42,7 +42,7 @@ const counterTriple = computed(() => {
 });
 
 onMounted(() => {
-  alert("coucou");
+  console.log("onMounted");
 });
 </script>
 
